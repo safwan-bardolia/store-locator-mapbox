@@ -1,0 +1,69 @@
+var list = [
+{
+"uid": "7BIgQ8XMZsd3U7XoP7GWUNQO7uS2",
+"email": "safvanbardolia@gmail.com",
+"userProfileUrl": "https://lh3.googleusercontent.com/a/AATXAJyhR2HzAUOSf4DFth8bAaJSVJGFMTotqzoOrVaIfA=s96-c",
+"fullName": "safwan",
+"mobile": "9689697084",
+"description": "CCTV  & watchman included ",
+"totalVehicles": 1,
+"fees": 20,
+"aadharFile": null,
+"aadharFileUri": "file:///C:/STS/Arriendo/uploads/Safwan.pdf",
+"residentialFile": null,
+"residentialFileUri": "file:///C:/STS/Arriendo/uploads/Safwan.pdf",
+"parkingPhoto": null,
+"parkingPhotoUri": "file:///C:/STS/Arriendo/uploads/Safwan.pdf",
+"latitude": 19.9888,
+"longitude": 73.7905
+},
+{
+"uid": "LA8kGs4k6Fd7qm7b5eKe1uVs5gM2",
+"email": "safwanb.comp_ioe@bkc.met.edu",
+"userProfileUrl": "https://lh3.googleusercontent.com/a/AATXAJzMnPASVP4REC_OOeuTCA4EGPpVz6hwtxkAL6M1=s96-c",
+"fullName": "priyanka",
+"mobile": "9689697084",
+"description": "including Redux",
+"totalVehicles": 1,
+"fees": 20,
+"aadharFile": null,
+"aadharFileUri": "file:///C:/STS/Arriendo/uploads/Affidavit_1.jpg",
+"residentialFile": null,
+"residentialFileUri": "file:///C:/STS/Arriendo/uploads/Affidavit_1.jpg",
+"parkingPhoto": null,
+"parkingPhotoUri": "file:///C:/STS/Arriendo/uploads/Affidavit_1.jpg",
+"latitude": 20.9888,
+"longitude": 73.7905
+}
+]
+
+
+  var geojson = {
+    type: "FeatureCollection",
+    features: [],
+  };
+  
+
+  for(i=0;i<list.length;i++) {
+    geojson.features.push({
+      "type":"Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [list[i].longitude, list[i].latitude]
+      },
+      "properties": {
+        "uid": list[i].uid,
+        "email": list[i].email,
+        "userProfileUrl": list[i].userProfileUrl,
+        "fullName": list[i].fullName,
+        "mobile": list[i].mobile,
+        "description": list[i].description,
+        "totalVehicles": list[i].totalVehicles,
+        "fees": list[i].fees,
+        "aadharFileUri": list[i].aadharFileUri,
+        "residentialFileUri": list[i].residentialFileUri,
+        "parkingPhotoUri": list[i].parkingPhotoUri,
+      
+      }
+    })
+  }
