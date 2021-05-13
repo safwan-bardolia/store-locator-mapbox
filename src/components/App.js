@@ -143,7 +143,7 @@ function App() {
         /* Create a div element for the marker. */
         var el = document.createElement('div');
         /* Assign a unique `id` to the marker. */
-        el.uid = 'marker-' + marker.properties.uid;
+        el.id = 'marker-' + marker.properties.uid;
         /* Assign the `marker` class to each marker for styling. */
         el.className = 'marker';
         
@@ -172,11 +172,11 @@ function App() {
           if (activeItem[0]) {
             activeItem[0].classList.remove('active');
           }
-          // var listing = document.getElementById(
-          // 'listing-' + marker.properties.uid
-          // );
-          // listing.classList.add('active');
-          this.parentNode.classList.add('active');
+          var listing = document.getElementById(
+          'listing-' + marker.properties.uid
+          );
+          listing.classList.add('active');
+          // this.parentNode.classList.add('active');
         });
       });
     }
@@ -196,7 +196,7 @@ function App() {
         var listings = document.getElementById('listings');
         var listing = listings.appendChild(document.createElement('div'));
         /* Assign a unique `id` to the listing. */
-        listing.uid = 'listing-' + prop.uid;
+        listing.id = 'listing-' + prop.uid;
         /* Assign the `item` class to each listing for styling. */
         listing.className = 'item';
         
@@ -204,7 +204,7 @@ function App() {
         var link = listing.appendChild(document.createElement('a'));
         link.href = '#';
         link.className = 'title';
-        link.uid = 'link-' + prop.uid;
+        link.id = 'link-' + prop.uid;
         link.innerHTML = prop.address;
         
         /* Add details to the individual listing. */
@@ -223,7 +223,7 @@ function App() {
         **/
         link.addEventListener('click', function (e) {
           for (var i = 0; i < geojson.features.length; i++) {
-            if (this.uid === 'link-' + geojson.features[i].properties.uid) {
+            if (this.id === 'link-' + geojson.features[i].properties.uid) {
               var clickedListing = geojson.features[i];
               flyToStore(clickedListing);
               createPopUp(clickedListing);
