@@ -1,5 +1,6 @@
-import { useEffect, useState} from 'react';
+import { useEffect, useRef, useState} from 'react';
 import './App.css';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 
 import mapboxgl from 'mapbox-gl/dist/mapbox-gl-csp';
 // eslint-disable-next-line import/no-webpack-loader-syntax
@@ -199,21 +200,75 @@ function App() {
         listing.id = 'listing-' + prop.uid;
         /* Assign the `item` class to each listing for styling. */
         listing.className = 'item';
-        
+                
+        // /* Add details to the individual listing. */
+        // var details = listing.appendChild(document.createElement('div'));
+        // details.innerHTML = prop.city;
+        // // if (prop.phone) {
+        // //   details.innerHTML += ' &middot; ' + prop.phoneFormatted;
+        // // }
+
+        // add img inside listing
+        var img = listing.appendChild(document.createElement('img'));
+        img.src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ_wbPYTxQPMcBh7SPzLFActXnP3uhifeVT_g&usqp=CAU";
+ 
         /* Add the link to the individual listing created above. */
-        var link = listing.appendChild(document.createElement('a'));
-        link.href = '#';
-        link.className = 'title';
-        link.id = 'link-' + prop.uid;
-        link.innerHTML = prop.address;
+        // var link = listing.appendChild(document.createElement('a'));
+        // link.href = '#';
+        // link.className = 'title';
+        // link.id = 'link-' + prop.uid;
+        // link.innerHTML = prop.address;
         
-        /* Add details to the individual listing. */
-        var details = listing.appendChild(document.createElement('div'));
-        details.innerHTML = prop.city;
-        // if (prop.phone) {
-        //   details.innerHTML += ' &middot; ' + prop.phoneFormatted;
-        // }
         
+        var listing__info = listing.appendChild(document.createElement('div'));
+        listing__info.className = 'listing__info';
+
+        // # listing__info start
+        
+        var listing__infoTop = listing__info.appendChild(document.createElement('div'));
+        listing__infoTop.className = 'listing__infoTop'
+
+          // * listing__infoTop start
+            var location = listing__infoTop.appendChild(document.createElement('p'))
+            location.innerHTML = `${prop.country} | ${prop.state} | ${prop.city}`
+
+            // var title = listing__infoTop.appendChild(document.createElement('h3'))
+            // title.innerHTML = prop.address
+
+            /* Add the link to the individual listing created above. */
+            var link = listing__infoTop.appendChild(document.createElement('a'));
+            link.href = '#';
+            link.className = 'title';
+            link.id = 'link-' + prop.uid;
+            link.innerHTML = prop.address;
+
+            var underscope = listing__infoTop.appendChild(document.createElement('p'))
+            underscope.innerHTML = '_____'
+            
+            var description = listing__infoTop.appendChild(document.createElement('p'))
+            description.innerHTML = `${prop.description} . ${prop.totalVehicles} space for vehicle . User ${prop.fullName} . Mobile ${prop.mobile}`
+          // * listing__infoTop end
+
+          
+          var listing__infoBottom = listing__info.appendChild(document.createElement('div'));
+          listing__infoBottom.className = 'listing__infoBottom'
+
+          // ** listing__infoBottom start
+            var stars = listing__infoBottom.appendChild(document.createElement('div'));
+            stars.className = 'listing_stars'
+
+              var stars_p = stars.appendChild(document.createElement('p'))
+              stars_p.innerHTML = '4.3'
+
+            var price = listing__infoBottom.appendChild(document.createElement('div'));
+            stars.className = 'listing_price'
+
+              var price_h2 = price.appendChild(document.createElement('h2'))
+              price_h2.innerHTML = `${prop.fees} / hour`
+          // ** listing__infoBottom end
+
+        // # listing__info end
+
         /**
         * Listen to the element and when it is clicked, do four things:
         * 1. Update the `currentFeature` to the store associated with the clicked link
@@ -221,9 +276,25 @@ function App() {
         * 3. Close all other popups and display popup for clicked store
         * 4. Highlight listing in suidebar (and remove highlight for all other listings)
         **/
-        link.addEventListener('click', function (e) {
+
+        // link.addEventListener('click', function (e) {
+        //   for (var i = 0; i < geojson.features.length; i++) {
+        //     if (this.id === 'link-' + geojson.features[i].properties.uid) {
+        //       var clickedListing = geojson.features[i];
+        //       flyToStore(clickedListing);
+        //       createPopUp(clickedListing);
+        //     }
+        //   }
+        //   var activeItem = document.getElementsByClassName('active');
+        //   if (activeItem[0]) {
+        //     activeItem[0].classList.remove('active');
+        //   }
+        //   this.parentNode.parentNode.parentNode.classList.add('active');
+        // });
+
+        listing.addEventListener('mouseover', function (e) {
           for (var i = 0; i < geojson.features.length; i++) {
-            if (this.id === 'link-' + geojson.features[i].properties.uid) {
+            if (this.id === 'listing-' + geojson.features[i].properties.uid) {
               var clickedListing = geojson.features[i];
               flyToStore(clickedListing);
               createPopUp(clickedListing);
@@ -233,8 +304,10 @@ function App() {
           if (activeItem[0]) {
             activeItem[0].classList.remove('active');
           }
-          this.parentNode.classList.add('active');
+          this.classList.add('active');
         });
+
+
       });
     }
 
