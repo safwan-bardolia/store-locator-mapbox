@@ -64,7 +64,7 @@ a:hover {
 
 .listings .item {
   display: block;
-  border-bottom: 1px solid #eee;
+  /* border-bottom: 1px solid #eee; */
   padding: 10px;
   text-decoration: none;
 }
@@ -125,35 +125,14 @@ a:hover {
 }
 
 .mapboxgl-popup-content {
-  font: 400 15px/22px "Source Sans Pro", "Helvetica Neue", Sans-serif;
+  /* font: 400 15px/22px "Source Sans Pro", "Helvetica Neue", Sans-serif; */
   padding: 0;
-  width: 180px;
+  width: 260px;
+  border-radius: 18px;
 }
 
 .mapboxgl-popup-content-wrapper {
   padding: 1%;
-}
-
-.mapboxgl-popup-content h3 {
-  background: #91c949;
-  color: #fff;
-  margin: 0;
-  display: block;
-  padding: 10px;
-  border-radius: 3px 3px 0 0;
-  font-weight: 700;
-  margin-top: -15px;
-}
-
-.mapboxgl-popup-content h4 {
-  margin: 0;
-  display: block;
-  padding: 10px;
-  font-weight: 400;
-}
-
-.mapboxgl-popup-content div {
-  padding: 10px;
 }
 
 .mapboxgl-container .leaflet-marker-icon {
@@ -162,6 +141,7 @@ a:hover {
 
 .mapboxgl-popup-anchor-top > .mapboxgl-popup-content {
   margin-top: 15px;
+  border-radius: 18px;
 }
 
 .mapboxgl-popup-anchor-top > .mapboxgl-popup-tip {
@@ -187,7 +167,7 @@ a:hover {
   position: relative;
   margin: 5px;
   padding: 5px;
-  border-bottom: 1px solid lightgray;
+  /* border-bottom: 1px solid lightgray; */
   cursor: pointer;
   overflow-x: scroll;
 }
@@ -229,4 +209,35 @@ a:hover {
 .listing__infoBottom {
   display: flex;
   justify-content: space-between;
+}
+
+.mapcard > img {
+  /* border-radius: 10px; */
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+  width: 260px;
+  height: 160px;
+  object-fit: fill;
+}
+
+.mapcard__info {
+  padding: 16px;
+}
+
+.mapboxgl-popup-content h3 {
+  /* background: #fff;
+  color: black;
+  margin: 0;
+  display: block;
+  padding: 10px;
+  border-radius: 3px 3px 0 0;
+  font-weight: 300;
+  margin-top: -15px; */
+  font-weight: 300;
+  margin-top: 5px;
+}
+
+.mapboxgl-popup-content h2 {
+  font-weight: 600;
+  margin-top: 5px;
 }

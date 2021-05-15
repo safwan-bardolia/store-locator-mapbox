@@ -264,7 +264,7 @@ function App() {
             stars.className = 'listing_price'
 
               var price_h2 = price.appendChild(document.createElement('h2'))
-              price_h2.innerHTML = `${prop.fees} / hour`
+              price_h2.innerHTML = `₹${prop.fees} / hour`
           // ** listing__infoBottom end
 
         // # listing__info end
@@ -325,10 +325,18 @@ function App() {
       var popup = new mapboxgl.Popup()
       .setLngLat(currentFeature.geometry.coordinates)
       .setHTML(
-      '<h3>Parking</h3>' +
-      '<h4>' +
-      currentFeature.properties.address +
-      '</h4>'
+      // '<h3>Parking</h3>' +
+      // '<h4>' +
+      // currentFeature.properties.address +
+      // '</h4>'
+      `<div class='mapcard'>
+        <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ_wbPYTxQPMcBh7SPzLFActXnP3uhifeVT_g&usqp=CAU'/>
+        <div class='mapcard__info'>
+          <h3>${currentFeature.properties.address}, ${currentFeature.properties.city} <br> </>
+          <h3>${currentFeature.properties.description} <br> ${currentFeature.properties.totalVehicles} space for vehicle - ${currentFeature.properties.mobile} <br> </>
+          <h2>₹${currentFeature.properties.fees} / hour</>
+        </div>
+      </div>`
       )
       .addTo(map);
     }
@@ -375,7 +383,7 @@ function App() {
       
       <div className="app__sidebar">
         <div className="app__heading">
-          <h1>Our location</h1>
+          <h1>nearby parking location</h1>
         </div>
         <div id="listings" className="listings">
 
