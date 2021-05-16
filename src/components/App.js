@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState} from 'react';
+import { useEffect, useState} from 'react';
 import './App.css';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import MapIcon from '@material-ui/icons/Map';
+import List from '@material-ui/icons/List';
 
 import mapboxgl from 'mapbox-gl/dist/mapbox-gl-csp';
 // eslint-disable-next-line import/no-webpack-loader-syntax
@@ -22,6 +23,10 @@ function App() {
 
   const[hostingData,setHostingData] = useState([]);
   const[locationData,setLocationData] = useState([]);
+
+  // for smaller screen this will decide text of button and
+  // it will also decide what to show on screen (sidebar or map) by changing class name
+  const[maptext, setMaptext] = useState(true);
   
   // when data with same user is present in both table then we merged ""hosting data into location data""?? because some user had only fill the hosting data
   // we assign location data to following var
@@ -307,6 +312,11 @@ function App() {
           this.classList.add('active');
         });
 
+        // move to booking when user click on sidebar-listing-record
+        listing.addEventListener('click',()=>{
+          console.log("click on map1")
+        })
+
 
       });
     }
@@ -329,7 +339,7 @@ function App() {
       // '<h4>' +
       // currentFeature.properties.address +
       // '</h4>'
-      `<div class='mapcard'>
+      `<div id='mapcard' class='mapcard'>
         <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ_wbPYTxQPMcBh7SPzLFActXnP3uhifeVT_g&usqp=CAU'/>
         <div class='mapcard__info'>
           <h3>${currentFeature.properties.address}, ${currentFeature.properties.city} <br> </>
@@ -339,6 +349,13 @@ function App() {
       </div>`
       )
       .addTo(map);
+
+      // move to booking when user click on mapcard
+      var mapcard = document.getElementById("mapcard");
+      mapcard.addEventListener('click',()=>{
+        console.log("click on map")
+      })
+
     }
   }
 
@@ -378,10 +395,43 @@ function App() {
 
   },[locationData.length])
 
+  // for smaller screen, this will decide whether to display sidebar or map
+  const hideAndShowMapAndSidebar = () => {
+    if(maptext) {
+      // we are going to display list
+
+      // hide map
+      // remove 'show' class from map & add 'hide'
+      document.getElementById("map").classList.remove('show')
+      document.getElementById("map").classList.add('hide')
+
+      // show sidebar
+      // remove 'hide' class from sidebar & add 'show'
+      document.getElementById("app__sidebar").classList.remove('hide')
+      document.getElementById("app__sidebar").classList.add('show')      
+
+    } else {
+      // we are going to display map
+
+      // hide sidebar
+      // remove 'show' class from app__sidebar & add 'hide'
+      document.getElementById("app__sidebar").classList.remove('show')
+      document.getElementById("app__sidebar").classList.add('hide')
+
+      // show map
+      // remove 'hide' class from map & add 'show'
+      document.getElementById("map").classList.remove('hide')
+      document.getElementById("map").classList.add('show')
+
+    }
+    setMaptext(!maptext);
+  }
+
   return (
     <div className="app">
-      
-      <div className="app__sidebar">
+
+        {/* remember we only target 'hide' & 'show' class for screen < 1100px   */}
+      <div id="app__sidebar" className="app__sidebar hide">
         <div className="app__heading">
           <h1>nearby parking location</h1>
         </div>
@@ -390,9 +440,15 @@ function App() {
         </div>
       </div>
       
-      <div id="map" className="app__map">
+      <div id="map" className="app__map show">
 
       </div>
+
+      <div className="app__button" onClick={hideAndShowMapAndSidebar}>
+        <h4>{maptext?'list':'map'}</h4>
+        {maptext?<List/>:<MapIcon/>}
+      </div>
+      {/* <Button onClick={hideAndShowMapAndSidebar}>{maptext?'list':'map'}</Button> */}
 
     </div>
   );
